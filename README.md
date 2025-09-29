@@ -29,4 +29,6 @@ npm start
 - [date-fns](https://date-fns.org/) - утилитарная библиотека для React, для работы с датами - форматирование и преобразование
 - [clsx](https://www.npmjs.com/package/clsx) - утилитарная функция, для построения className по условию, что очень полезно при работе с tailwind
 - [class-variance-authority](https://cva.style/docs) - платформенно-независимая утилитарная библиотека, для построения различных вариантов (variants) UI компонентов. Упрощает создание UI библиотек
+- [@radix-ui/react-select](https://www.radix-ui.com/primitives/docs/components/select) - headless ui библиотека для компонентов-примитивов. Упрощает создание базовых компонентов, позволяя их кастомизировать, а также предоставляет accessibility из коробки
+- [@radix-ui/react-slot](https://www.radix-ui.com/primitives/docs/utilities/slot) - утилитарный компонент, мержит свои пропсы в его непосредственные чайлды, упрощает создания базовых компонентов.
 
