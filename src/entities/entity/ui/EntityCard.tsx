@@ -1,10 +1,12 @@
-import { ItemDto } from "@/lib/api/models";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/Card";
+
 import Image from "next/image";
-import { Skeleton } from "./ui/Skeleton";
 import { useState } from "react";
 import { CalendarDaysIcon } from "lucide-react";
-import { formatDate } from "@/lib/utils/dateUtil";
+
+import { Skeleton } from "@/src/shared/ui/Skeleton";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/shared/ui/Card";
+import { ItemDto } from "@/src/shared/api";
+import { formatDate } from "@/src/shared/utils";
 
 type EntityCardProps = {
     item: ItemDto

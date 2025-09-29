@@ -1,8 +1,9 @@
-import "@/styles/globals.css";
+import "@/src/app/styles/globals.css";
 import type { AppProps } from "next/app";
-import { roboto } from "@/styles/fonts";
 import { Provider } from "react-redux";
-import { storeWrapper } from "@/lib/store";
+import { storeWrapper } from "@/src/shared/store";
+import { roboto } from "@/src/app/styles/fonts";
+
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = storeWrapper.useWrappedStore(rest)

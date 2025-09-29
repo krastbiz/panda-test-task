@@ -1,6 +1,6 @@
-import { HomePage } from "@/components/HomePage/HomePage";
-import { fetchCards } from "@/lib/cardSlice";
-import { storeWrapper } from "@/lib/store";
+import { HomePage } from "@/src/pages/home";
+import { fetchCards, storeWrapper } from "@/src/shared/store";
+
 
 export default function Home() {
   return <HomePage />

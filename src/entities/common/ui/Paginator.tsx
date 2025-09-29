@@ -1,6 +1,7 @@
+import { Pagination, PaginationButton, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "@/src/shared/ui/Pagination"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/src/shared/ui/Select"
 import { useCallback, useEffect, useState } from "react"
-import { Pagination, PaginationButton, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from "../ui/Pagination"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/Select"
+
 
 type PaginatorProps<T> = {
     page: number

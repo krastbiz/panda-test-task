@@ -1,17 +1,11 @@
-import { Container } from "../ui/Layout/Container"
-import { EntityCard, SkeletonEntityCard } from "../EntityCard"
-import { useAppDispatch, useAppSelector } from "@/lib/store"
-import { fetchCards, setPage, setPageSize } from "@/lib/cardSlice"
+
 import { useRef } from "react"
-import { Paginator } from "../widgets/Paginator"
-import { ErrorView } from "../ui/ErrorView"
-import { NoResultsView } from "../ui/NoResultsView"
+import { fetchCards, setPage, setPageSize, useAppDispatch, useAppSelector } from "@/src/shared/store"
+import { EntityCard, ErrorView, NoResultsView, SkeletonEntityCard } from "@/src/entities/entity"
+import { Paginator } from "@/src/entities/common"
+import { Container } from "@/src/shared/ui"
 
-type CardListProps = {
-
-}
-
-export const CardsGridModule = (props: CardListProps) => {
+export const CardsGridModule = () => {
     const { items, page, pageSize, totalPages, isLoading, isError } = useAppSelector((state) => state.cards)
     const dispatch = useAppDispatch()
     const abortControllerRef = useRef<AbortController>(null)

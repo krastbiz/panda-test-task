@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ItemDto } from "./api/models"
-import { cardService } from "./api"
 import { HYDRATE } from 'next-redux-wrapper'
-import { RootState } from "./store"
+import { type RootState } from "@/src/shared/store"
+import { cardService, ItemDto } from "@/src/shared/api"
 
 export interface CardState {
     items: ItemDto[]
@@ -45,6 +44,7 @@ export const cardSlice = createSlice({
         }
     }, 
     extraReducers: (builder) => {
+        // @ts-ignore - next-redux-wrapper has issue with typings
         builder.addCase(
             HYDRATE, (state, action: { type: string; payload: RootState }) => {
                 return {

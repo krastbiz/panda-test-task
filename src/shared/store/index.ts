@@ -1,0 +1,2 @@
+export { type AppDispatch, type AppStore, type RootState, makeStore, storeWrapper, useAppDispatch, useAppSelector, useAppStore } from './store'
+export { fetchCards, setCards, setPage, setPageSize } from './slices/card.slice'
