@@ -2,6 +2,9 @@
 module.exports = {
     theme: {
     extend: {
+        fontFamily: {
+            sans: ["Roboto", "sans-serif"],
+        },
         colors: {
             primary: {
                 100: 'oklch(96.8% 0.007 247.896)',

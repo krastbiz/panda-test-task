@@ -5,7 +5,7 @@ import {
   MoreHorizontalIcon,
 } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/stylesUtil"
 import { Button, buttonVariants } from "@/components/ui/Button"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => {
@@ -13,7 +13,7 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => {
     <nav
       role="navigation"
       aria-label="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
+      className={cn("mx-auto flex w-full justify-center text-primary-500", className)}
       {...props}
     />
   )

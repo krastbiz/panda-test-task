@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/stylesUtil"
 
 export const Skeleton = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (

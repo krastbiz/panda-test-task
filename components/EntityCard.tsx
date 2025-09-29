@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import Image from "next/image";
 import { Skeleton } from "./ui/Skeleton";
 import { useState } from "react";
+import { CalendarDaysIcon } from "lucide-react";
+import { formatDate } from "@/lib/utils/dateUtil";
 
 type EntityCardProps = {
     item: ItemDto
@@ -13,7 +15,7 @@ export const EntityCard = (props: EntityCardProps) => {
 
     const [imageState, setImageState] = useState<'loading' | 'loaded' | 'error'>('loading')
 
-    const hasImage = !!item.imgUrl
+    const hasImage = !!item.imgUrl || imageState === 'error'
 
     return (
         <Card className="overflow-hidden">
@@ -35,10 +37,10 @@ export const EntityCard = (props: EntityCardProps) => {
             </CardHeader>
             <CardContent>
                 <div className="mb-1 flex justify-between items-center">
-                    <CardTitle>{item.title}</CardTitle>
-                    <div>{item.date}</div>
+                    <CardTitle className="text-primary-500 font-sans">{item.title}</CardTitle>
+                    <div className="flex gap-1 items-center text-secondary-500"><CalendarDaysIcon className="w-[20px] h-[20px]" stroke="gray"/> {formatDate(item.date, 'dd MMM yyyy')}</div>
                 </div>
-                <CardDescription>{item.message}</CardDescription>
+                <CardDescription className="text-secondary-500">{item.message}</CardDescription>
             </CardContent>
         </Card>
     )

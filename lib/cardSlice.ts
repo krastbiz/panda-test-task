@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ItemDto, ItemPaginatedDto, PaginationMetaDto } from "./api/models"
-import { getBrowserApiClient } from "./api/browserApiClient"
+import { ItemDto } from "./api/models"
+import { cardService } from "./api"
+import { HYDRATE } from 'next-redux-wrapper'
+import { RootState } from "./store"
 
 export interface CardState {
     items: ItemDto[]
@@ -22,12 +24,8 @@ const initialState: CardState = {
 
 export const fetchCards = createAsyncThunk(
     'cards/page',
-    async ({page, pageSize }: { page: number, pageSize: number }, { signal }) => {
-        const apiClient = getBrowserApiClient()
-
-        const query = new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() }).toString()
-
-        const response = await apiClient.get<ItemPaginatedDto>(`/list?${query}`, { signal })
+    async ({page, pageSize }: { page: number, pageSize: number }, thunkApi) => {
+        const response = await cardService.getCards({ page, pageSize }, thunkApi)
         return response.data
   },
 )
@@ -42,14 +40,26 @@ export const cardSlice = createSlice({
         setPageSize: (state, action: PayloadAction<number>) => {
             state.pageSize = action.payload
         },
+        setCards: (state, action: PayloadAction<ItemDto[]>) => {
+            state.items = action.payload
+        }
     }, 
     extraReducers: (builder) => {
-        builder.addCase(fetchCards.pending, (state) => {
+        builder.addCase(
+            HYDRATE, (state, action: { type: string; payload: RootState }) => {
+                return {
+                    ...state,
+                    ...action.payload.cards,
+                }
+            }
+        ).addCase(fetchCards.pending, (state) => {
             state.isLoading = true
             state.isError = false
-        }).addCase(fetchCards.rejected, (state) => {
-            state.isLoading = false
-            state.isError = true
+        }).addCase(fetchCards.rejected, (state, action) => {
+            if (!action.meta?.aborted) {
+                state.isLoading = false
+                state.isError = true
+            }
         }).addCase(fetchCards.fulfilled, (state, action) => {
             state.isLoading = false
             state.isError = false
@@ -59,6 +69,6 @@ export const cardSlice = createSlice({
     }
 })
 
-export const { setPage, setPageSize } = cardSlice.actions
+export const { setPage, setPageSize, setCards } = cardSlice.actions
 
 export default cardSlice.reducer
