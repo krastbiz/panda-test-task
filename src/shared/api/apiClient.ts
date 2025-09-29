@@ -8,7 +8,7 @@ export class ApiClient {
     this.client = axios.create({ baseURL });
   }
 
-  public get<T = any>(url: string, config?: AxiosRequestConfig) {
+  public get<T = unknown>(url: string, config?: AxiosRequestConfig) {
     return this.client.get<T>(url, config);
   }
 

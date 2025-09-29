@@ -1,6 +1,6 @@
 import React from "react"
 
-type DefaultLayoutProps = React.PropsWithChildren<{}>
+type DefaultLayoutProps = React.PropsWithChildren
 
 export const DefaultLayout = (props: DefaultLayoutProps) => {
     const { children } = props

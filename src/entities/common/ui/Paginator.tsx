@@ -1,29 +1,28 @@
+import React from 'react'
 import { Pagination, PaginationButton, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "@/src/shared/ui/Pagination"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/src/shared/ui/Select"
-import { useCallback, useEffect, useState } from "react"
 
 
-type PaginatorProps<T> = {
+type PaginatorProps = {
   page: number
   pageSize: number
   totalItems: number
 
   pageSizeOptions?: number[]
-  initialGroupSize?: number,
+  pageGroupSize?: number,
   updateDataCallback: (pageInfo: { page: number, pageSize: number }) => void
 }
 
-const Paginator = <T,>(props: PaginatorProps<T>) => {
+const Paginator = (props: PaginatorProps) => {
   const {
     updateDataCallback,
     page,
     pageSize,
     totalItems,
-    initialGroupSize = 2,
+    pageGroupSize = 2,
     pageSizeOptions,
   } = props
 
-  const [pageGroupSize, setPageGroupSize] = useState(initialGroupSize)
   const totalPage = Math.ceil(totalItems / pageSize)
   const pageNumbers = Array.from({ length: totalPage }, (_, i) => i + 1)
   const isLastPage = page === totalPage
@@ -33,16 +32,6 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
   const isLastPortion = pagePortion === Math.ceil(totalPage / pageGroupSize)
 
 
-  const findPageGroupSize = useCallback(() => {
-    return 2
-  }, [initialGroupSize])
-
-  useEffect(() => {
-    const newPageGroupSize = findPageGroupSize()
-    if (pageGroupSize !== newPageGroupSize) {
-      setPageGroupSize(newPageGroupSize)
-    }
-  }, [findPageGroupSize, pageGroupSize])
 
   const handleUpdatePage = (pageNumber: number) => {
     if (pageNumber !== page) {
@@ -162,7 +151,7 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
           <SelectContent className="w-[80px] min-w-[80px]">
             <SelectGroup>
               <SelectLabel>Page size</SelectLabel>
-              {pageSizeOptions.map(option => <SelectItem value={option.toString()}>{option}</SelectItem>)}
+              {pageSizeOptions.map((option, index) => <SelectItem key={`${option}-${index}`} value={option.toString()}>{option}</SelectItem>)}
             </SelectGroup>
           </SelectContent>
         </Select>
