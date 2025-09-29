@@ -12,6 +12,7 @@ export const MovieGridWidget = () => {
     const dispatch = useAppDispatch()
     const abortControllerRef = useRef<AbortController>(null)
 
+    // TODO: add debouncing to reduce load for BE side
     const fetchNewCards = ({ page, pageSize }: { page: number, pageSize: number}) => {
         if (abortControllerRef.current) abortControllerRef.current.abort()
 
