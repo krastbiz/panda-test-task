@@ -4,13 +4,13 @@ import { useCallback, useEffect, useState } from "react"
 
 
 type PaginatorProps<T> = {
-    page: number
-    pageSize: number
-    totalItems: number
+  page: number
+  pageSize: number
+  totalItems: number
 
-    items: T[]
-    initialGroupSize?: number,
-    updateDataCallback: (pageInfo: { page: number, pageSize: number}) => void
+  pageSizeOptions?: number[]
+  initialGroupSize?: number,
+  updateDataCallback: (pageInfo: { page: number, pageSize: number }) => void
 }
 
 const Paginator = <T,>(props: PaginatorProps<T>) => {
@@ -18,9 +18,9 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
     updateDataCallback,
     page,
     pageSize,
-    items,
     totalItems,
     initialGroupSize = 2,
+    pageSizeOptions,
   } = props
 
   const [pageGroupSize, setPageGroupSize] = useState(initialGroupSize)
@@ -34,8 +34,8 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
 
 
   const findPageGroupSize = useCallback(() => {
-        return 2
-    }, [initialGroupSize])
+    return 2
+  }, [initialGroupSize])
 
   useEffect(() => {
     const newPageGroupSize = findPageGroupSize()
@@ -79,12 +79,12 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
 
     return numberPanel.map((number) => {
       return (
-          <PaginationItem key={number}>
-            <PaginationButton
-              isActive={page === number}
-              onClick={() => handleUpdatePage(number)}
-            >{number}</PaginationButton>
-          </PaginationItem>
+        <PaginationItem key={number}>
+          <PaginationButton
+            isActive={page === number}
+            onClick={() => handleUpdatePage(number)}
+          >{number}</PaginationButton>
+        </PaginationItem>
       )
     })
   }
@@ -101,7 +101,7 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
         <PaginationButton
           isActive={isLastPage}
           onClick={() => handleUpdatePage(totalPage)}
-          >{totalPage}
+        >{totalPage}
         </PaginationButton>
       </PaginationItem>
     </>
@@ -118,7 +118,7 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
 
       <PaginationItem>
         <PaginationButton
-                    onClick={() => handleSelectNextPortion(-1)}
+          onClick={() => handleSelectNextPortion(-1)}
         >
           {' '}
           &hellip;{' '}
@@ -128,46 +128,46 @@ const Paginator = <T,>(props: PaginatorProps<T>) => {
   )
 
   return (
-      <div className="flex gap-2">
-            <Pagination>
+    <div className="flex gap-2">
+      <Pagination>
         <PaginationContent>
 
-            <PaginationItem>
-                <PaginationPrevious
-                    onClick={() => handleIncrement(-1)}
-                    disabled={isFirstPage}
-                  />
-            </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => handleIncrement(-1)}
+              disabled={isFirstPage}
+            />
+          </PaginationItem>
 
-            {pageDecrementBtn}
-            {renderNumbersPanel()}
-            {pageIncrementBtn}
-            
-            <PaginationItem>
-                <PaginationNext
-                  onClick={() => handleIncrement(1)}
-                  disabled={isLastPage}
-                />
-            </PaginationItem>
+          {pageDecrementBtn}
+          {renderNumbersPanel()}
+          {pageIncrementBtn}
+
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => handleIncrement(1)}
+              disabled={isLastPage}
+            />
+          </PaginationItem>
         </PaginationContent>
 
-        </Pagination>
+      </Pagination>
 
-                    <Select value={pageSize.toString()} onValueChange={(value) => updateDataCallback({ page, pageSize: +value})}>
-                    <SelectTrigger className="w-[80px]">
-                        <SelectValue defaultValue={pageSize.toString()} />
-                    </SelectTrigger>
+      {!!pageSizeOptions?.length && (
+        <Select value={pageSize.toString()} onValueChange={(value) => updateDataCallback({ page, pageSize: +value })}>
+          <SelectTrigger className="w-[80px]">
+            <SelectValue defaultValue={pageSizeOptions[0].toString()} />
+          </SelectTrigger>
 
-                    <SelectContent className="w-[80px] min-w-[80px]">
-                        <SelectGroup>
-                            <SelectLabel>Page size</SelectLabel>
-                            <SelectItem value="9">9</SelectItem>
-                            <SelectItem value="18">18</SelectItem>
-                            <SelectItem value="27">27</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-      </div>
+          <SelectContent className="w-[80px] min-w-[80px]">
+            <SelectGroup>
+              <SelectLabel>Page size</SelectLabel>
+              {pageSizeOptions.map(option => <SelectItem value={option.toString()}>{option}</SelectItem>)}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      )}
+    </div>
   )
 }
 

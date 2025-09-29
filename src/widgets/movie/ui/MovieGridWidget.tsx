@@ -1,11 +1,13 @@
 
 import { useRef } from "react"
 import { fetchCards, setPage, setPageSize, useAppDispatch, useAppSelector } from "@/src/shared/store"
-import { EntityCard, ErrorView, NoResultsView, SkeletonEntityCard } from "@/src/entities/entity"
+import { MovieCard, ErrorView, NoResultsView, SkeletonMovieCard } from "@/src/entities/movie"
 import { Paginator } from "@/src/entities/common"
 import { Container } from "@/src/shared/ui"
 
-export const CardsGridModule = () => {
+const PAGE_SIZE_OPTIONS = [9, 18, 27]
+
+export const MovieGridWidget = () => {
     const { items, page, pageSize, totalPages, isLoading, isError } = useAppSelector((state) => state.cards)
     const dispatch = useAppDispatch()
     const abortControllerRef = useRef<AbortController>(null)
@@ -32,10 +34,10 @@ export const CardsGridModule = () => {
                 <>
                     <div className="mb-2 sticky top-0 p-1 z-1 bg-white">
                         <Paginator
-                            items={items}
                             page={page}
                             pageSize={pageSize}
                             totalItems={totalPages}
+                            pageSizeOptions={PAGE_SIZE_OPTIONS}
                             updateDataCallback={(data) => {
                                 const newPage = pageSize === data.pageSize ? data.page : 1
                                 const newPageSize = data.pageSize
@@ -47,8 +49,8 @@ export const CardsGridModule = () => {
                         />
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-                        {!isLoading && items.map(i => <EntityCard key={i.id} item={i} />)}
-                        {isLoading && emptyArray.map((_, index) => <SkeletonEntityCard key={index} />)}
+                        {!isLoading && items.map(i => <MovieCard key={i.id} item={i} />)}
+                        {isLoading && emptyArray.map((_, index) => <SkeletonMovieCard key={index} />)}
                     </div>
                 </>
             )}

@@ -1,11 +1,11 @@
 
 import { DefaultLayout } from "@/src/shared/ui"
-import { CardsGridModule } from "@/src/widgets/entity"
+import { MovieGridWidget } from "@/src/widgets/movie"
 
 export const HomePage = () => {
   return (
     <DefaultLayout>
-      <CardsGridModule />
+      <MovieGridWidget />
     </DefaultLayout>
   )
 }

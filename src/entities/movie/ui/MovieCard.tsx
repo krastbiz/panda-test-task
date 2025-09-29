@@ -8,11 +8,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src
 import { ItemDto } from "@/src/shared/api";
 import { formatDate } from "@/src/shared/utils";
 
-type EntityCardProps = {
+type MovieCardProps = {
     item: ItemDto
 }
 
-export const EntityCard = (props: EntityCardProps) => {
+export const MovieCard = (props: MovieCardProps) => {
     const { item } = props
 
     const [imageState, setImageState] = useState<'loading' | 'loaded' | 'error'>('loading')
@@ -48,7 +48,7 @@ export const EntityCard = (props: EntityCardProps) => {
     )
 }
 
-export const SkeletonEntityCard = () => {
+export const SkeletonMovieCard = () => {
     return (
         <Card className="h-[260px]">
             <CardHeader className="relative h-[150px]">

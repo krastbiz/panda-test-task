@@ -17,7 +17,7 @@ export class ApiClient {
 
 let browserApiClient: ApiClient | null = null;
 
-// return the same api client instance on client side
+// return the same api client instance on client side and new instance each time on server side
 export function getApiClient(): ApiClient {
   if (typeof window === 'undefined') return new ApiClient(process.env.NEXT_PUBLIC_BASE_API_URL!)
 

@@ -51,7 +51,7 @@ const PaginationButton = ({
     <button
       data-active={isActive}
       className={cn(
-        'cursor-pointer border-primary-200',
+        `cursor-pointer border ${isActive ? 'border-primary-200' : 'border-transparent'}`,
         buttonVariants({
           variant: isActive ? "outline" : "ghost",
           size,

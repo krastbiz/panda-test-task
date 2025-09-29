@@ -21,6 +21,7 @@ const initialState: CardState = {
     isError: false 
 }
 
+// TODO: replace it with RTK query
 export const fetchCards = createAsyncThunk(
     'cards/page',
     async ({page, pageSize }: { page: number, pageSize: number }, thunkApi) => {

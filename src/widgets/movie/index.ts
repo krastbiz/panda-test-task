@@ -1,0 +1,1 @@
+export { MovieGridWidget } from './ui/MovieGridWidget'
